@@ -21,9 +21,13 @@ abstract class AbstractWebViewException extends AbstractException
     /* @var string */
     private $lang;
 
-    public function __construct(?string $lang = 'en', Request $request = null)
+    /* @var string */
+    private $exceptionFileName;
+
+    public function __construct(?string $lang = 'en', Request $request = null, ?string $exceptionFileName = '')
     {
         $this->lang = $lang;
+        $this->exceptionFileName = $exceptionFileName;
         parent::__construct('', $request);
     }
 
@@ -43,5 +47,18 @@ abstract class AbstractWebViewException extends AbstractException
         } else {
             return $this->errorMessages['en'];
         }
+    }
+
+
+    /**
+     * Returns an exception file name
+     *
+     * If a file name is not available, empty string will be returned
+     *
+     * @return string
+     */
+    public function getExceptionFileName(): string
+    {
+        return $this->exceptionFileName;
     }
 }
